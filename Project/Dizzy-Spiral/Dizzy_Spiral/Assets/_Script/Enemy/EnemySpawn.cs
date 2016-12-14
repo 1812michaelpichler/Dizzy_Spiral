@@ -12,13 +12,19 @@ public class EnemySpawn : MonoBehaviour {
     public float timeNeedToSpawn = 3.0f;
     public float minSpeed = 90.0f;
     public float maxSpeed = 720.0f;
+
+    public Transform arrowTransform;
     //public float nextSpawnStart = 4.0f;
 
     public float enemyLife = 5.0f;
 
     private float currentTime = 0.0f;
+    private bool decideNextEnemy = true;
+    private int objectID = 0;
 
-    Vector3 pos;
+    private Vector3 pos;
+    public Vector3 forceDirection = new Vector3(0.0f, 0.0f, 50.0f);
+
     // Use this for initialization
     void Start () {
         playerMovement = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
@@ -30,32 +36,52 @@ public class EnemySpawn : MonoBehaviour {
 	void Update () {
         currentTime += Time.deltaTime;
         transform.Rotate(new Vector3(0.0f, currentTime / timeNeedToSpawn * (maxSpeed - minSpeed) * Time.deltaTime, 0.0f));
+        arrowTransform.Rotate(new Vector3(0.0f, -currentTime / timeNeedToSpawn * (maxSpeed - minSpeed) * Time.deltaTime, 0.0f));
 
-        if(currentTime >= timeNeedToSpawn)
+        if (decideNextEnemy)
         {
+            setPosition();
+
             float randNumber = Random.Range(0.0f, 1.0f);
 
-            int i = 0;
+            objectID = 0;
 
-            for(int j=0; j < randomBoundary.Count; ++j)
+            for (int j = 0; j < randomBoundary.Count; ++j)
             {
-                if(randNumber <= randomBoundary[j])
+                if (randNumber <= randomBoundary[j])
                 {
-                    i = j;
+                    objectID = j;
                     j = randomBoundary.Count;
                 }
             }
 
-            GameObject o = (GameObject)GameObject.Instantiate(enemyObject[i], pos, Quaternion.identity);
+            if (objectID == 0)
+            {
+                arrowTransform.gameObject.SetActive(false);
+            }
+            else if (objectID == 1)
+            {
+                arrowTransform.gameObject.SetActive(true);
+
+                randNumber = Random.Range(0.0f, 360.0f);
+                arrowTransform.Rotate(new Vector3(0.0f, randNumber, 0.0f));
+
+                forceDirection = Quaternion.AngleAxis(randNumber, Vector3.up) * forceDirection;
+            }
+
+            decideNextEnemy = false;
+        }
+
+        if (currentTime >= timeNeedToSpawn)
+        {
+            decideNextEnemy = true;
+            GameObject o = (GameObject)GameObject.Instantiate(enemyObject[objectID], pos, Quaternion.identity);
             o.GetComponent<SimpleEnemy>().LifeTime = enemyLife;
 
-            if (i == 1)
-                o.GetComponent<Rigidbody>().AddForce(new Vector3(30.0f, 0.0f, 0.0f));
-
-            transform.Translate(new Vector3(0.0f, -5.0f, 0.0f), Space.World);
+            if (objectID == 1)
+                o.GetComponent<Rigidbody>().AddForce(forceDirection);
 
             currentTime = 0.0f;
-            setPosition();
         }
 	}
 
