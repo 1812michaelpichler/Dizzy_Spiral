@@ -5,13 +5,16 @@ public class SimpleEnemy : MonoBehaviour {
 
     private HighscoreScript highScoreScript = null;
     
-    public float damage = 100.0f;
+    public int damage = 10;
 
     private float lifeTime = 5.0f;
+
+	private PlayerHealth playerHealth;
 
 	// Use this for initialization
 	void Start () {
         highScoreScript = HighscoreScript.Instance;
+		playerHealth = PlayerHealth.Instance;
 	}
 	
 	// Update is called once per frame
@@ -26,8 +29,8 @@ public class SimpleEnemy : MonoBehaviour {
 
     void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.name == "PlayerObject")
-            highScoreScript.addPoints((int)(-1*damage));
+		if (other.gameObject.name == "PlayerObject")
+			playerHealth.damage (damage);
     }
 
     public float LifeTime

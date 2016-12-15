@@ -26,6 +26,7 @@ public class PlayerMovement : MonoBehaviour {
 
     //Holds the data for the player highscore
     private HighscoreScript highscoreScript = null;
+	private PlayerHealth playerHealth = null;
 
 	// Use this for initialization
 	void Start () {
@@ -39,6 +40,7 @@ public class PlayerMovement : MonoBehaviour {
         #endif
 
         highscoreScript = HighscoreScript.Instance;
+		playerHealth = PlayerHealth.Instance;
     }
 	
     void Update()
