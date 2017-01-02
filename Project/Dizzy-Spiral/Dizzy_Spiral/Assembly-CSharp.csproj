@@ -51,6 +51,7 @@
      <Compile Include="Assets\_Script\HighscoreScript.cs" />
      <Compile Include="Assets\_Script\PlayerHealth.cs" />
      <Compile Include="Assets\_Script\PlayerMovement.cs" />
+     <Compile Include="Assets\_Script\SpecialItemCollection.cs" />
  <Reference Include="UnityEngine.Networking">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
  </Reference>

@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+using UnityEngine.UI;
+
 public class PlayerMovement : MonoBehaviour {
 
     //Influence the speed of the player object
@@ -11,10 +13,14 @@ public class PlayerMovement : MonoBehaviour {
     public float minRadius = 2.0f;
     public float maxRadius = 43.0f;
 
+	public float increaseInDifficulty = 0.01f;
+
     //This variable holds the current radius relating to the arena center
     private float radius;
 
     private float currentYAngle = 0.0f;
+
+	private bool clockwise = true;
 
     //This is the center of the field
     Transform transformPlayerObject = null;
@@ -27,6 +33,10 @@ public class PlayerMovement : MonoBehaviour {
     //Holds the data for the player highscore
     private HighscoreScript highscoreScript = null;
 	private PlayerHealth playerHealth = null;
+
+	private Text secondsRemaining = null;
+	public float secondsOfEffectRemaining = 10;
+	private bool effectActive = false;
 
 	// Use this for initialization
 	void Start () {
@@ -41,11 +51,25 @@ public class PlayerMovement : MonoBehaviour {
 
         highscoreScript = HighscoreScript.Instance;
 		playerHealth = PlayerHealth.Instance;
+
+		secondsRemaining = GameObject.Find("txtSeconds").GetComponent<Text>();
+		secondsRemaining.text = "";
     }
 	
     void Update()
     {
         handleInput();
+		if (effectActive) {
+			secondsOfEffectRemaining -= Time.deltaTime;
+			secondsRemaining.text = Mathf.Round (secondsOfEffectRemaining).ToString ();
+
+			if (secondsOfEffectRemaining < 0) {
+				effectActive = false;
+				clockwise = true;
+				secondsOfEffectRemaining = 10;
+				secondsRemaining.text = "";
+			}
+		}
     }
     //Fixed update is by default 0.02s and handles more precise physics calculation as update (frame-drops, more time is needed) (everyFrame)
     void FixedUpdate () {
@@ -81,13 +105,29 @@ public class PlayerMovement : MonoBehaviour {
         transformPlayerObject.localPosition = playerVector;
 
         float customizedRotationSpeed = Mathf.Sqrt(minRadius / radius) * rotationSpeed;
-        transform.rotation = Quaternion.AngleAxis(Time.deltaTime * customizedRotationSpeed, Vector3.up) * transform.rotation;
 
-        //Control if player have make a round
-        if(transform.rotation.eulerAngles.y < currentYAngle)
-        {
-            highscoreScript.addPoints(1);
-        }
+		if (clockwise)
+		{
+			transform.rotation = Quaternion.AngleAxis (Time.deltaTime * customizedRotationSpeed, Vector3.up) * transform.rotation;
+
+			//Control if player have make a round
+			if(transform.rotation.eulerAngles.y < currentYAngle)
+			{
+				//highscoreScript.addPoints(1);
+				increaseDifficulty ();
+			}
+		}
+		else
+		{
+			transform.rotation = Quaternion.AngleAxis (Time.deltaTime * customizedRotationSpeed, Vector3.down) * transform.rotation;
+
+			//Control if player have make a round
+			if(transform.rotation.eulerAngles.y > currentYAngle)
+			{
+				//highscoreScript.addPoints(1);
+				increaseDifficulty ();
+			}
+		}
 
         currentYAngle = transform.rotation.eulerAngles.y;
 	}
@@ -133,4 +173,16 @@ public class PlayerMovement : MonoBehaviour {
     {
         get { return maxRadius; }
     }
+
+	private void increaseDifficulty()
+	{
+		rotationSpeed = rotationSpeed + rotationSpeed * increaseInDifficulty;
+		radiusChangeSpeed = radiusChangeSpeed + radiusChangeSpeed * increaseInDifficulty;
+	}
+
+	public void counterClockWise() {
+		
+		this.clockwise = false;
+		effectActive = true;
+	}
 }
