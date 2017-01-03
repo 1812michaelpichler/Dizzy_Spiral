@@ -10,7 +10,7 @@ public class SimpleEnemy : MonoBehaviour {
     private float lifeTime = 5.0f;
 
 	private PlayerHealth playerHealth;
-
+    
 	// Use this for initialization
 	void Start () {
         highScoreScript = HighscoreScript.Instance;
@@ -29,8 +29,17 @@ public class SimpleEnemy : MonoBehaviour {
 
     void OnTriggerEnter(Collider other)
     {
-		if (other.gameObject.name == "PlayerObject")
-			playerHealth.damage (damage);
+        if (other.gameObject.name == "PlayerObject")
+        {
+            if(playerHealth.damage(damage))
+            {
+                Transform t = GameObject.Find("Cameras").transform.Find("OrthographicCamera").Find("SaveHighscoreMenu");
+                t.gameObject.SetActive(true);
+                t.GetComponent<SaveHighscoreMenuHandler>().finishedGame();
+            }
+
+            Destroy(this.gameObject);
+        }
     }
 
     public float LifeTime

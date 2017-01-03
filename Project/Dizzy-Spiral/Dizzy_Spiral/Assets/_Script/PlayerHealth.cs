@@ -9,7 +9,8 @@ public class PlayerHealth {
 
 	private static PlayerHealth instance = null;
 
-	public int health = 50;
+	public int health = 10;
+    private int startHealth;
 
 	private Text txtHealth = null;
 
@@ -17,7 +18,9 @@ public class PlayerHealth {
 		txtHealth = GameObject.Find("txtPlayerHealth").GetComponent<Text>();
 
 		txtHealth.text = "Health: " + health;
-	}
+
+        startHealth = health;
+    }
 
 	public bool damage (int damage) {
 
@@ -34,6 +37,12 @@ public class PlayerHealth {
 	{
 		health += healpoint;
 	}
+
+    public void reset()
+    {
+        health = startHealth;
+        txtHealth.text = "Health: " + health;
+    }
 
 	public static PlayerHealth Instance {
 		get{ 

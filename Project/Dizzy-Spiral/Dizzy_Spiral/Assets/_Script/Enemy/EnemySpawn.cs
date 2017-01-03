@@ -75,7 +75,7 @@ public class EnemySpawn : MonoBehaviour {
         if (currentTime >= timeNeedToSpawn)
         {
             decideNextEnemy = true;
-            GameObject o = (GameObject)GameObject.Instantiate(enemyObject[objectID], pos, Quaternion.identity);
+            GameObject o = (GameObject)GameObject.Instantiate(enemyObject[objectID], pos, Quaternion.identity, this.transform.parent);
             o.GetComponent<SimpleEnemy>().LifeTime = enemyLife;
 
             if (objectID == 1)

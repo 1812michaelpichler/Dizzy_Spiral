@@ -36,4 +36,10 @@ public class HighscoreScript {
             return instance;
         }
     }
+
+    public int Highscore
+    {
+        get { return highscore; }
+        set { highscore = value; }
+    }
 }

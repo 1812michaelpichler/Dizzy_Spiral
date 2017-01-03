@@ -67,7 +67,12 @@
     <Compile Include="Assets\_Script\Enemy\EnemySpawn.cs" />
     <Compile Include="Assets\_Script\Enemy\SimpleEnemy.cs" />
     <Compile Include="Assets\_Script\HighscoreScript.cs" />
+    <Compile Include="Assets\_Script\Menu\MainMenuHandler.cs" />
+    <Compile Include="Assets\_Script\Menu\SaveHighscoreMenuHandler.cs" />
+    <Compile Include="Assets\_Script\Menu\ShowHighscoreMenuHandler.cs" />
+    <Compile Include="Assets\_Script\PlayerHealth.cs" />
     <Compile Include="Assets\_Script\PlayerMovement.cs" />
+    <Compile Include="Assets\_Script\SpecialItemCollection.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>
