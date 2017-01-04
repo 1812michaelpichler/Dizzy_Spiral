@@ -63,16 +63,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\_Script\CoinCollection.cs" />
     <Compile Include="Assets\_Script\Enemy\EnemySpawn.cs" />
     <Compile Include="Assets\_Script\Enemy\SimpleEnemy.cs" />
-    <Compile Include="Assets\_Script\HighscoreScript.cs" />
+    <Compile Include="Assets\_Script\HelpFullForPlayer\CoinCollection.cs" />
+    <Compile Include="Assets\_Script\HelpFullForPlayer\SpecialItemCollection.cs" />
+    <Compile Include="Assets\_Script\Highscore\HighscoreList.cs" />
+    <Compile Include="Assets\_Script\Highscore\HighscoreScript.cs" />
     <Compile Include="Assets\_Script\Menu\MainMenuHandler.cs" />
     <Compile Include="Assets\_Script\Menu\SaveHighscoreMenuHandler.cs" />
     <Compile Include="Assets\_Script\Menu\ShowHighscoreMenuHandler.cs" />
-    <Compile Include="Assets\_Script\PlayerHealth.cs" />
-    <Compile Include="Assets\_Script\PlayerMovement.cs" />
-    <Compile Include="Assets\_Script\SpecialItemCollection.cs" />
+    <Compile Include="Assets\_Script\Player\PlayerHealth.cs" />
+    <Compile Include="Assets\_Script\Player\PlayerMovement.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>
