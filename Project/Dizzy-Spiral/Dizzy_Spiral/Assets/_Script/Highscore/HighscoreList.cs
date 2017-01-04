@@ -117,7 +117,7 @@ public class HighscoreList {
 #if UNITY_ANDROID
         loadOnAndroid();
 #else
-        saveOnPC();
+        loadOnPC();
 #endif
     }
 
@@ -165,6 +165,10 @@ public class HighscoreList {
         byte[] b = getBinaryData();
     }
 
+    private static void loadOnPC()
+    {
+
+    }
 
     private byte[] getBinaryData()
     {
