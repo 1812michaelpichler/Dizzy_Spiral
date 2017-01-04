@@ -7,32 +7,66 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 [System.Serializable]
 public class HighscoreList {
+    private static HighscoreList instance = null;
+    private static string fileName = "DizzyHighscore";
 
     private int maxItems = 5;
 
     private List<string> nameList = new List<string>();
     private List<int> highscoreList = new List<int>();
 
+
+    private HighscoreList() { }
+
+    public static HighscoreList Instance
+    {
+        get
+        {
+            if (instance == null)
+                instance = new HighscoreList();// load();
+
+            return instance;
+        }
+    }
+
+    public List<int> ScoreList
+    {
+        get { return highscoreList; }
+    }
+
+    public List<string> NameList
+    {
+        get { return nameList; }
+    }
+
     //returns true if score is in the top <maxItems>
     public bool addElement(string name, int score)
     {
-        if(highscoreList.Count < maxItems)
+        bool hasInsert = false;
+
+        if (highscoreList.Count < maxItems)
         {
             nameList.Add(name);
             highscoreList.Add(score);
+
+            hasInsert = true;
+            sortList();
         }
-
-        int minIndex = findMin();
-
-        if(highscoreList[minIndex] < score)
+        else
         {
-            highscoreList[minIndex] = score;
-            nameList[minIndex] = name;
+            int minIndex = findMin();
+
+            if (highscoreList[minIndex] < score)
+            {
+                highscoreList[minIndex] = score;
+                nameList[minIndex] = name;
+
+                hasInsert = true;
+                sortList();
+            }
         }
 
-        sortList();
-
-        return false;
+        return hasInsert;
     }
 
     private int findMin()
@@ -52,7 +86,7 @@ public class HighscoreList {
     {
         for(int i=0; i<highscoreList.Count; ++i)
         {
-            for(int j=1; j<highscoreList.Count; ++j)
+            for(int j=0; j<highscoreList.Count; ++j)
             {
                 if(highscoreList[j] < highscoreList[i])
                 {
@@ -68,8 +102,71 @@ public class HighscoreList {
             }
         }
     }
-    
-    public byte[] getBinaryData()
+
+    public void save()
+    {
+#if UNITY_ANDROID
+        saveOnAndroid();
+#else
+        saveOnPC();
+#endif
+    }
+
+    private static void load()
+    {
+#if UNITY_ANDROID
+        loadOnAndroid();
+#else
+        saveOnPC();
+#endif
+    }
+
+    private void saveOnAndroid()
+    {
+        /*byte[] b = getBinaryData();
+
+        FileInfo file = new FileInfo(Application.persistentDataPath + "/" + fileName + ".txt");
+        StreamWriter w;
+        if (!file.Exists)
+        {
+            w = file.CreateText();
+        }
+        else
+        {
+            file.Delete();
+            w = file.CreateText();
+        }
+
+        w.WriteLine(b);
+        w.Close();*/
+
+        BinaryFormatter bf = new BinaryFormatter();
+        FileStream file = File.Create(Application.persistentDataPath + "/" + fileName + ".txt");
+        bf.Serialize(file, this);
+        file.Close();
+    }
+
+    private static void loadOnAndroid()
+    {
+        if (File.Exists(Application.persistentDataPath + "/" + fileName + ".txt"))
+        {
+            BinaryFormatter bf = new BinaryFormatter();
+            FileStream file = File.Open(Application.persistentDataPath + "/" + fileName + ".txt", FileMode.Open);
+            instance = (HighscoreList)bf.Deserialize(file);
+            file.Close();
+        } else
+        {
+            instance = new HighscoreList();
+        }
+    }
+
+    private void saveOnPC()
+    {
+        byte[] b = getBinaryData();
+    }
+
+
+    private byte[] getBinaryData()
     {
         BinaryFormatter binaryFormatter = new BinaryFormatter();
         MemoryStream ms = new MemoryStream();
@@ -78,4 +175,5 @@ public class HighscoreList {
 
         return b;
     }
+
 }
