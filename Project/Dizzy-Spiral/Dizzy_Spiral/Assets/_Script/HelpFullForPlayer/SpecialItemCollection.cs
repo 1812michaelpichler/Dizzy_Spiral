@@ -3,6 +3,8 @@ using System.Collections;
 
 public class SpecialItemCollection : MonoBehaviour {
 
+    public float lifeTime = 10.0f;
+
 	void OnTriggerEnter(Collider other)
 	{
 		if(other.gameObject.name == "PlayerObject") {
@@ -28,4 +30,12 @@ public class SpecialItemCollection : MonoBehaviour {
 	{
 		playerMovement = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
 	}
+
+    void Update()
+    {
+        lifeTime -= Time.deltaTime;
+
+        if (lifeTime <= 0.0f)
+            GameObject.Destroy(transform.gameObject);
+    }
 }

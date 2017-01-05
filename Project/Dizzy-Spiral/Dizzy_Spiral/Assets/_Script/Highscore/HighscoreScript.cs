@@ -40,6 +40,6 @@ public class HighscoreScript {
     public int Highscore
     {
         get { return highscore; }
-        set { highscore = value; }
+        set { highscore = value; highscoreText.text = "Highscore: " + highscore; }
     }
 }

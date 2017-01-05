@@ -9,7 +9,7 @@ public class PlayerHealth {
 
 	private static PlayerHealth instance = null;
 
-	public int health = 10;
+	private int health = 10;
     private int startHealth;
 
 	private Text txtHealth = null;
@@ -36,7 +36,8 @@ public class PlayerHealth {
 	public void heal (int healpoint)
 	{
 		health += healpoint;
-	}
+        txtHealth.text = "Health: " + health;
+    }
 
     public void reset()
     {

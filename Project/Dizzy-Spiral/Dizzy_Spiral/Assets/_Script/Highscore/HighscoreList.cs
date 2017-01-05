@@ -40,16 +40,13 @@ public class HighscoreList {
     }
 
     //returns true if score is in the top <maxItems>
-    public bool addElement(string name, int score)
+    public void addElement(string name, int score)
     {
-        bool hasInsert = false;
-
         if (highscoreList.Count < maxItems)
         {
             nameList.Add(name);
             highscoreList.Add(score);
-
-            hasInsert = true;
+            
             sortList();
         }
         else
@@ -60,9 +57,27 @@ public class HighscoreList {
             {
                 highscoreList[minIndex] = score;
                 nameList[minIndex] = name;
-
-                hasInsert = true;
+                
                 sortList();
+            }
+        }
+    }
+
+    public bool isInTheList(int score)
+    {
+        bool hasInsert = false;
+
+        if (highscoreList.Count < maxItems)
+        {
+            hasInsert = true;
+        }
+        else
+        {
+            int minIndex = findMin();
+
+            if (highscoreList[minIndex] < score)
+            {
+                hasInsert = true;
             }
         }
 

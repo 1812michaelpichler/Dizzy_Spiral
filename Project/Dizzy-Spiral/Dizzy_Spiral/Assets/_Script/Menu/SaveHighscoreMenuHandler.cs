@@ -7,9 +7,11 @@ public class SaveHighscoreMenuHandler : MonoBehaviour {
     
     public void handleSaveHighscore()
     {
-        transform.parent.FindChild("ShowHighscoreMenu").gameObject.SetActive(true);
-        
+        string personName = transform.Find("ipfName").Find("ipfNameText").GetComponent<Text>().text;
+        HighscoreList.Instance.addElement(personName, HighscoreScript.Instance.Highscore);
         HighscoreList.Instance.save();
+
+        transform.parent.FindChild("ShowHighscoreMenu").gameObject.SetActive(true);
 
         HighscoreScript.Instance.Highscore = 0;
         this.gameObject.SetActive(false);
@@ -18,10 +20,9 @@ public class SaveHighscoreMenuHandler : MonoBehaviour {
     public void finishedGame()
     {
         Destroy(GameObject.Find("PlayableObjects(Clone)"));
-
         Text t = transform.Find("InfoText").GetComponent<Text>();
 
-        bool isIn = HighscoreList.Instance.addElement("name", HighscoreScript.Instance.Highscore);
+        bool isIn = HighscoreList.Instance.isInTheList(HighscoreScript.Instance.Highscore);
         
         if(isIn)
             t.text = "Game Over\nYour Points:\n" + HighscoreScript.Instance.Highscore + "\nYou are in the list :)";

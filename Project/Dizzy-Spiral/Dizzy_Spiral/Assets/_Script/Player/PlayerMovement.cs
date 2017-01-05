@@ -30,10 +30,6 @@ public class PlayerMovement : MonoBehaviour {
     //Handles player input related to the running plattform (Android, PC)
     private bool isSpaceDown = false;
 
-    //Holds the data for the player highscore
-    private HighscoreScript highscoreScript = null;
-	private PlayerHealth playerHealth = null;
-
 	private Text secondsRemaining = null;
 	public float secondsOfEffectRemaining = 10;
 	private bool effectActive = false;
@@ -48,10 +44,7 @@ public class PlayerMovement : MonoBehaviour {
         #if UNITY_ANDROID       //This part is to avoid standby modus after certain seconds
             Screen.sleepTimeout = SleepTimeout.NeverSleep;
         #endif
-
-        highscoreScript = HighscoreScript.Instance;
-		playerHealth = PlayerHealth.Instance;
-
+        
 		secondsRemaining = GameObject.Find("txtSeconds").GetComponent<Text>();
 		secondsRemaining.text = "";
     }

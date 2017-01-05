@@ -2,9 +2,6 @@
 using System.Collections;
 
 public class SimpleEnemy : MonoBehaviour {
-
-    private HighscoreScript highScoreScript = null;
-    
     public int damage = 10;
 
     private float lifeTime = 5.0f;
@@ -13,7 +10,6 @@ public class SimpleEnemy : MonoBehaviour {
     
 	// Use this for initialization
 	void Start () {
-        highScoreScript = HighscoreScript.Instance;
 		playerHealth = PlayerHealth.Instance;
 	}
 	

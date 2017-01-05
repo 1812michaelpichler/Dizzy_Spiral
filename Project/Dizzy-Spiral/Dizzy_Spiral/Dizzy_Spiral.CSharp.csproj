@@ -66,6 +66,9 @@
     <Compile Include="Assets\_Script\Enemy\EnemySpawn.cs" />
     <Compile Include="Assets\_Script\Enemy\SimpleEnemy.cs" />
     <Compile Include="Assets\_Script\HelpFullForPlayer\CoinCollection.cs" />
+    <Compile Include="Assets\_Script\HelpFullForPlayer\ExtraCoin.cs" />
+    <Compile Include="Assets\_Script\HelpFullForPlayer\HealItem.cs" />
+    <Compile Include="Assets\_Script\HelpFullForPlayer\HelperSpawner.cs" />
     <Compile Include="Assets\_Script\HelpFullForPlayer\SpecialItemCollection.cs" />
     <Compile Include="Assets\_Script\Highscore\HighscoreList.cs" />
     <Compile Include="Assets\_Script\Highscore\HighscoreScript.cs" />
