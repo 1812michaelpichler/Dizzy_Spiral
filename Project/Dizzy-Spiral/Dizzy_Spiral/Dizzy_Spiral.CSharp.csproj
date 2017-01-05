@@ -65,6 +65,7 @@
   <ItemGroup>
     <Compile Include="Assets\_Script\Enemy\EnemySpawn.cs" />
     <Compile Include="Assets\_Script\Enemy\SimpleEnemy.cs" />
+    <Compile Include="Assets\_Script\HelpFullForPlayer\CameraShake.cs" />
     <Compile Include="Assets\_Script\HelpFullForPlayer\CoinCollection.cs" />
     <Compile Include="Assets\_Script\HelpFullForPlayer\ExtraCoin.cs" />
     <Compile Include="Assets\_Script\HelpFullForPlayer\HealItem.cs" />

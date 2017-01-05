@@ -6,10 +6,6 @@ public class HealItem : MonoBehaviour {
 
     public int healPoints = 5;
 
-    void Start()
-    {
-    }
-
     void Update()
     {
         lifeTime -= Time.deltaTime;

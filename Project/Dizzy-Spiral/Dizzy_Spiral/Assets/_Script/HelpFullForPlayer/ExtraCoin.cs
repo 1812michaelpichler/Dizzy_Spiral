@@ -6,10 +6,6 @@ public class ExtraCoin : MonoBehaviour {
 
     public int pointValue = 5;
 
-    void Start()
-    {
-    }
-
     void Update()
     {
         lifeTime -= Time.deltaTime;
