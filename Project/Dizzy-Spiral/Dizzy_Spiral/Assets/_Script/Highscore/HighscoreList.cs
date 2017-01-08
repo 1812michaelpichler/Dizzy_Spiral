@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
+using System;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
@@ -15,15 +16,16 @@ public class HighscoreList {
     private List<string> nameList = new List<string>();
     private List<int> highscoreList = new List<int>();
 
-
     private HighscoreList() { }
 
     public static HighscoreList Instance
     {
         get
         {
-            if (instance == null)
-                instance = new HighscoreList();// load();
+			if (instance == null) {
+				instance = new HighscoreList ();
+				load ();
+			}
 
             return instance;
         }
@@ -120,79 +122,33 @@ public class HighscoreList {
 
     public void save()
     {
-#if UNITY_ANDROID
-        saveOnAndroid();
-#else
-        saveOnPC();
-#endif
+		string filename = Application.persistentDataPath + "/gamedata";
+
+		using (Stream stream = File.OpenWrite(filename))
+		{    
+			BinaryFormatter formatter = new BinaryFormatter();
+			formatter.Serialize(stream, HighscoreList.Instance);
+		}
     }
 
     private static void load()
     {
-#if UNITY_ANDROID
-        loadOnAndroid();
-#else
-        loadOnPC();
-#endif
+		string filename = Application.persistentDataPath + "/gamedata";
+
+		if (File.Exists (filename)) {
+			try {
+				using (Stream stream = File.OpenRead(filename))
+				{
+					BinaryFormatter formatter = new BinaryFormatter();
+					HighscoreList oldList = formatter.Deserialize(stream) as HighscoreList;
+					HighscoreList.Instance.nameList = oldList.nameList;
+					HighscoreList.Instance.highscoreList = oldList.highscoreList;
+				}
+			}
+			catch (Exception e)
+			{
+				Debug.Log(e.Message);
+			}
+		}
     }
-
-    private void saveOnAndroid()
-    {
-        /*byte[] b = getBinaryData();
-
-        FileInfo file = new FileInfo(Application.persistentDataPath + "/" + fileName + ".txt");
-        StreamWriter w;
-        if (!file.Exists)
-        {
-            w = file.CreateText();
-        }
-        else
-        {
-            file.Delete();
-            w = file.CreateText();
-        }
-
-        w.WriteLine(b);
-        w.Close();*/
-
-        BinaryFormatter bf = new BinaryFormatter();
-        FileStream file = File.Create(Application.persistentDataPath + "/" + fileName + ".txt");
-        bf.Serialize(file, this);
-        file.Close();
-    }
-
-    private static void loadOnAndroid()
-    {
-        if (File.Exists(Application.persistentDataPath + "/" + fileName + ".txt"))
-        {
-            BinaryFormatter bf = new BinaryFormatter();
-            FileStream file = File.Open(Application.persistentDataPath + "/" + fileName + ".txt", FileMode.Open);
-            instance = (HighscoreList)bf.Deserialize(file);
-            file.Close();
-        } else
-        {
-            instance = new HighscoreList();
-        }
-    }
-
-    private void saveOnPC()
-    {
-        byte[] b = getBinaryData();
-    }
-
-    private static void loadOnPC()
-    {
-
-    }
-
-    private byte[] getBinaryData()
-    {
-        BinaryFormatter binaryFormatter = new BinaryFormatter();
-        MemoryStream ms = new MemoryStream();
-        binaryFormatter.Serialize(ms, this);
-        byte[] b = ms.ToArray();
-
-        return b;
-    }
-
 }

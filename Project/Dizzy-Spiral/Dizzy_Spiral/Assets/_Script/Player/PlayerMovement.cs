@@ -137,11 +137,19 @@ public class PlayerMovement : MonoBehaviour {
         #endif
 
         #if UNITY_ANDROID
-                    if (Input.touchCount > 0)
-                        isSpaceDown = true;
-                    else
-                        isSpaceDown = false;
+            if (Input.touchCount > 0)
+                isSpaceDown = true;
+            else
+                isSpaceDown = false;
         #endif
+
+		#if UNITY_IPHONE
+			if (Input.touchCount > 0)
+				isSpaceDown = true;
+			else
+				isSpaceDown = false;
+		#endif
+
     }
 
     //Input for the editor and pc
