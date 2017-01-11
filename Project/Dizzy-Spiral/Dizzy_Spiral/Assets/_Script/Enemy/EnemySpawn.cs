@@ -17,6 +17,7 @@ public class EnemySpawn : MonoBehaviour {
     //public float nextSpawnStart = 4.0f;
 
     public float enemyLife = 5.0f;
+    private float enemyLifeExpandTime = 5.0f / 60.0f;
 
     private float currentTime = 0.0f;
     private bool decideNextEnemy = true;
@@ -81,6 +82,7 @@ public class EnemySpawn : MonoBehaviour {
             if (objectID == 1)
                 o.GetComponent<Rigidbody>().AddForce(forceDirection);
 
+            enemyLife += currentTime * enemyLifeExpandTime;
             currentTime = 0.0f;
         }
 	}
