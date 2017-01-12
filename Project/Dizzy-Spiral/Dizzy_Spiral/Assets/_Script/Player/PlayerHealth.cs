@@ -9,7 +9,7 @@ public class PlayerHealth {
 
 	private static PlayerHealth instance = null;
 
-	private int health = 10;
+	private int health = 50;
     private int startHealth;
 
 	private Text txtHealth = null;

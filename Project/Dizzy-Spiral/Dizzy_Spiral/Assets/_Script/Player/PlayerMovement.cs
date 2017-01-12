@@ -8,12 +8,14 @@ public class PlayerMovement : MonoBehaviour {
     //Influence the speed of the player object
     public float rotationSpeed = 10.0f;
     public float radiusChangeSpeed = 0.1f;
+	private float currentRadiusChangeSpeed = 0.0f;
+	private bool lastSpace = false;
 
     //Define the allowed range of the player object
     public float minRadius = 2.0f;
     public float maxRadius = 43.0f;
 
-	public float increaseInDifficulty = 0.01f;
+	public float increaseInDifficulty = 0.10f;
 
     //This variable holds the current radius relating to the arena center
     private float radius;
@@ -69,23 +71,42 @@ public class PlayerMovement : MonoBehaviour {
 
         //handleInput();
 
-        if(isSpaceDown)
-        {
-            radius += Time.fixedDeltaTime * radiusChangeSpeed;
+		if (isSpaceDown) {
+			if (!lastSpace) {
+				if (radius > 3) {
+					currentRadiusChangeSpeed = -currentRadiusChangeSpeed;
+				}
+				lastSpace = true;
+			}
+				
+			currentRadiusChangeSpeed += Time.fixedDeltaTime * 2f * radiusChangeSpeed;
+			if (currentRadiusChangeSpeed > radiusChangeSpeed)
+				currentRadiusChangeSpeed = radiusChangeSpeed;
+			
+			radius += Time.fixedDeltaTime * currentRadiusChangeSpeed;
 
-            if (radius > maxRadius)
-                radius = maxRadius;
+
+		} else {
+			if (lastSpace) {
+				if (radius > 3) {
+					currentRadiusChangeSpeed = -currentRadiusChangeSpeed;
+				}
+				lastSpace = false;
+			}
+				currentRadiusChangeSpeed += Time.fixedDeltaTime * 2f * radiusChangeSpeed;
+			if (currentRadiusChangeSpeed > radiusChangeSpeed)
+				currentRadiusChangeSpeed = radiusChangeSpeed;	
+			
+			radius -= Time.fixedDeltaTime * currentRadiusChangeSpeed;
+
+			if (radius < minRadius) {
+				radius = minRadius;
+			}
         }
-        else
-        {
-            radius -= Time.fixedDeltaTime * radiusChangeSpeed;
 
-            if(radius < minRadius)
-            {
-                radius = minRadius;
-            }
-        }
-
+		if (radius > maxRadius)
+			radius = maxRadius;
+		
         if (radius < minRadius)
         {
             playerVector.z = minRadius;
