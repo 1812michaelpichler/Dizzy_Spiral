@@ -53,7 +53,7 @@ public class CameraShake : MonoBehaviour {
     {
         if (other.gameObject.name == "PlayerObject")
         {
-            transform.GetComponent<MeshRenderer>().enabled = false;
+            transform.GetChild(0).GetComponent<MeshRenderer>().enabled = false;
             isShaking = true;
         }
     }

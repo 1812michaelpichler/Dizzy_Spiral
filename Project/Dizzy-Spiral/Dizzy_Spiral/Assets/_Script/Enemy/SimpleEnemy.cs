@@ -4,7 +4,7 @@ using System.Collections;
 public class SimpleEnemy : MonoBehaviour {
     public int damage = 10;
 
-    private float lifeTime = 5.0f;
+    private float lifeTime = 15.0f;
 
 	private PlayerHealth playerHealth;
     

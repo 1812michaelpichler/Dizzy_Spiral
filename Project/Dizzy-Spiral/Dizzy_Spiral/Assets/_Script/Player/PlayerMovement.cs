@@ -104,8 +104,11 @@ public class PlayerMovement : MonoBehaviour {
 			}
         }
 
-		if (radius > maxRadius)
-			radius = maxRadius;
+        if (radius > maxRadius)
+        {
+            radius = maxRadius;
+            currentRadiusChangeSpeed = 0.0f;
+        }
 		
         if (radius < minRadius)
         {

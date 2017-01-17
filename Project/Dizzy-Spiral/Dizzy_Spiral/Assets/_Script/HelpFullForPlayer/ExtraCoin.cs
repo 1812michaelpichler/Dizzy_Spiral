@@ -16,6 +16,7 @@ public class ExtraCoin : MonoBehaviour {
 
     void OnTriggerEnter(Collider other)
     {
+        Debug.Log(other.gameObject.name);
         if (other.gameObject.name == "PlayerObject")
         {
             HighscoreScript.Instance.addPoints(pointValue);
