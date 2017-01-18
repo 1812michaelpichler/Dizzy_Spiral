@@ -70,7 +70,7 @@ public class HelperSpawner : MonoBehaviour
     private void setPosition()
     {
         float r = Random.Range(playerMovement.MinRadius, playerMovement.MaxRadius);
-        float angle = Random.Range(0.0f, Mathf.PI * 2.0f);
+        float angle = Random.Range(0.0f, 0.0f);
 
         pos = new Vector3(r * Mathf.Sin(angle), 2.0f, r * Mathf.Cos(angle));
         transform.position = pos;
