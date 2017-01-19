@@ -67,10 +67,10 @@ public class PlayerMovement : MonoBehaviour {
 			secondsRemaining.text = Mathf.Round (secondsOfEffectRemaining).ToString ();
 
 			if (secondsOfEffectRemaining < 0) {
-				showHPText = false;
+				effectActive = false;
 				clockwise = true;
 				secondsOfEffectRemaining = 10;
-				hpAdded.text = "";
+				secondsRemaining.text = "";
 			}
 		}
 
