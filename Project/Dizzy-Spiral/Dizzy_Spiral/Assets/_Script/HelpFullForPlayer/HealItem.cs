@@ -19,6 +19,8 @@ public class HealItem : MonoBehaviour {
         if (other.gameObject.name == "PlayerObject")
         {
             PlayerHealth.Instance.heal(healPoints);
+			PlayerMovement playerMovement = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
+			playerMovement.showHPExtra ();
             GameObject.Destroy(transform.gameObject);
         }
     }

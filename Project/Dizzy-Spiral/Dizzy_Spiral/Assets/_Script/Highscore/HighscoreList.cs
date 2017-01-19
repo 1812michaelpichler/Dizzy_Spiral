@@ -9,7 +9,6 @@ using System.Runtime.Serialization.Formatters.Binary;
 [System.Serializable]
 public class HighscoreList {
     private static HighscoreList instance = null;
-    private static string fileName = "DizzyHighscore";
 
     private int maxItems = 5;
 

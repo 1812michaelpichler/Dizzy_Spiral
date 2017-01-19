@@ -36,6 +36,10 @@ public class PlayerMovement : MonoBehaviour {
 	public float secondsOfEffectRemaining = 10;
 	private bool effectActive = false;
 
+	private Text hpAdded = null;
+	private float secondsHP = 3;
+	private bool showHPText = false;
+
 	// Use this for initialization
 	void Start () {
         radius = minRadius;
@@ -49,20 +53,35 @@ public class PlayerMovement : MonoBehaviour {
         
 		secondsRemaining = GameObject.Find("txtSeconds").GetComponent<Text>();
 		secondsRemaining.text = "";
+
+		hpAdded = GameObject.Find("txtAddedHP").GetComponent<Text>();
+		hpAdded.text = "";
     }
 	
     void Update()
     {
         handleInput();
+
 		if (effectActive) {
 			secondsOfEffectRemaining -= Time.deltaTime;
 			secondsRemaining.text = Mathf.Round (secondsOfEffectRemaining).ToString ();
 
 			if (secondsOfEffectRemaining < 0) {
-				effectActive = false;
+				showHPText = false;
 				clockwise = true;
 				secondsOfEffectRemaining = 10;
-				secondsRemaining.text = "";
+				hpAdded.text = "";
+			}
+		}
+
+		if (showHPText) {
+			secondsHP -= Time.deltaTime;
+			//hpAdded.text = Mathf.Round (secondsHP).ToString ();
+
+			if (secondsHP < 0) {
+				showHPText = false;
+				secondsHP = 3;
+				hpAdded.text = "";
 			}
 		}
     }
@@ -209,5 +228,10 @@ public class PlayerMovement : MonoBehaviour {
 		
 		this.clockwise = false;
 		effectActive = true;
+	}
+
+	public void showHPExtra() {
+		showHPText = true;
+		hpAdded.text = "+5HP";
 	}
 }
