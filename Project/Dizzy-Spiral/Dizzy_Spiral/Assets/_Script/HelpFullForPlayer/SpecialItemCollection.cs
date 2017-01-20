@@ -21,6 +21,8 @@ public class SpecialItemCollection : MonoBehaviour {
 			//GameObject.Destroy(o, destroyTime);
 
 			playerMovement.counterClockWise ();
+
+            GameObject.Destroy(this.gameObject);
 		}
 	}
 		

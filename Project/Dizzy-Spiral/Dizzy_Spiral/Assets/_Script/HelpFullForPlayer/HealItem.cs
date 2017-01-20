@@ -5,6 +5,7 @@ public class HealItem : MonoBehaviour {
     public float lifeTime = 10.0f;
 
     public int healPoints = 5;
+    public GameObject infoText;
 
     void Update()
     {
@@ -20,7 +21,10 @@ public class HealItem : MonoBehaviour {
         {
             PlayerHealth.Instance.heal(healPoints);
 			PlayerMovement playerMovement = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
-			playerMovement.showHPExtra ();
+            //playerMovement.showHPExtra ();
+
+            GameObject o = Instantiate(infoText);
+            o.GetComponent<Transform>().position = transform.position;
             GameObject.Destroy(transform.gameObject);
         }
     }

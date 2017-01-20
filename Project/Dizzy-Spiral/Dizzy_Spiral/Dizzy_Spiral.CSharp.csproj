@@ -63,6 +63,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\_Script\Destroy.cs" />
     <Compile Include="Assets\_Script\Enemy\EnemySpawn.cs" />
     <Compile Include="Assets\_Script\Enemy\SimpleEnemy.cs" />
     <Compile Include="Assets\_Script\HelpFullForPlayer\CameraShake.cs" />
