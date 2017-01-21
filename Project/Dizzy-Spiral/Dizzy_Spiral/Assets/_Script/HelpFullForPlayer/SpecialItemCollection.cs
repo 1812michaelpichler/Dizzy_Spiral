@@ -1,11 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class SpecialItemCollection : MonoBehaviour {
 
     public float lifeTime = 10.0f;
+    private float originLifeTime;
 
-	void OnTriggerEnter(Collider other)
+    private Image progressBar;
+
+    void OnTriggerEnter(Collider other)
 	{
 		if(other.gameObject.name == "PlayerObject") {
 			//highscoreScript.addPoints(pointValue);
@@ -31,11 +35,18 @@ public class SpecialItemCollection : MonoBehaviour {
 	void Start()
 	{
 		playerMovement = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
-	}
+
+        progressBar = transform.FindChild("ProgressBar").FindChild("Red").FindChild("RedImage").GetComponent<Image>();
+        progressBar.fillAmount = 1.0f;
+
+        originLifeTime = lifeTime;
+    }
 
     void Update()
     {
         lifeTime -= Time.deltaTime;
+
+        progressBar.fillAmount = lifeTime / originLifeTime;
 
         if (lifeTime <= 0.0f)
             GameObject.Destroy(transform.gameObject);

@@ -17,6 +17,8 @@ public class CoinCollection : MonoBehaviour {
         highscoreScript = HighscoreScript.Instance;
 
         playerMovement = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
+
+        setPosition();
     }
 
     void OnTriggerEnter(Collider other)
@@ -34,5 +36,14 @@ public class CoinCollection : MonoBehaviour {
 
             GameObject.Destroy(o, destroyTime);
         }
+    }
+
+    private void setPosition()
+    {
+        float r = Random.Range(playerMovement.MinRadius, playerMovement.MaxRadius);
+        float angle = Random.Range(0.0f, Mathf.PI * 2.0f);
+
+        Vector3 pos = new Vector3(r * Mathf.Sin(angle), 0, r * Mathf.Cos(angle));
+        transform.position = pos;
     }
 }

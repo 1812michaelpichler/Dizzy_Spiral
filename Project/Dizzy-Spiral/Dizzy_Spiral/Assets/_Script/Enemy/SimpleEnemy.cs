@@ -1,21 +1,30 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class SimpleEnemy : MonoBehaviour {
     public int damage = 10;
 
     private float lifeTime = 15.0f;
+    private float originLifeTime = 15.0f;
 
 	private PlayerHealth playerHealth;
-    
-	// Use this for initialization
-	void Start () {
+    private Image progressBar;
+
+
+    // Use this for initialization
+    void Start () {
 		playerHealth = PlayerHealth.Instance;
+
+        progressBar = transform.FindChild("ProgressBar").FindChild("Red").FindChild("RedImage").GetComponent<Image>();
+        progressBar.fillAmount = 1.0f;
 	}
 	
 	// Update is called once per frame
 	void Update () {
         lifeTime -= Time.deltaTime;
+
+        progressBar.fillAmount = lifeTime / originLifeTime;
 
         if(lifeTime <= 0.0f)
         {
@@ -41,6 +50,6 @@ public class SimpleEnemy : MonoBehaviour {
     public float LifeTime
     {
         get { return lifeTime; }
-        set { lifeTime = value; }
+        set { lifeTime = value; originLifeTime = value; }
     }
 }

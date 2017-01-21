@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class CameraShake : MonoBehaviour {
     public float lifeTime = 10.0f;
+    private float originLifeTime;
     public float shakeDuration = 6.0f;
     public float max = 5.0f;
 
@@ -12,10 +14,19 @@ public class CameraShake : MonoBehaviour {
     private Transform cameraTransform;
     private bool isShaking = false;
 
+    private Image progressBar;
+    private GameObject progressInfo;
+
     void Start()
     {
         originalCameraPosition = GameObject.FindWithTag("MainCameraParent").transform.position;
         cameraTransform = GameObject.FindWithTag("MainCameraParent").transform;
+
+        progressBar = transform.FindChild("ProgressBar").FindChild("Red").FindChild("RedImage").GetComponent<Image>();
+        progressBar.fillAmount = 1.0f;
+
+        progressInfo = transform.FindChild("ProgressBar").gameObject;
+        originLifeTime = lifeTime;
     }
 
     void Update()
@@ -23,6 +34,8 @@ public class CameraShake : MonoBehaviour {
         if (!isShaking)
         {
             lifeTime -= Time.deltaTime;
+
+            progressBar.fillAmount = lifeTime / originLifeTime;
 
             if (lifeTime <= 0.0f)
                 GameObject.Destroy(transform.gameObject);
@@ -55,6 +68,8 @@ public class CameraShake : MonoBehaviour {
         {
             transform.GetChild(0).GetComponent<MeshRenderer>().enabled = false;
             isShaking = true;
+
+            progressInfo.SetActive(false);
         }
     }
 }
