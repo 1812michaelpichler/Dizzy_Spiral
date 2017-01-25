@@ -40,6 +40,8 @@ public class PlayerMovement : MonoBehaviour {
 	private float secondsHP = 3;
 	private bool showHPText = false;
 
+	private float alpha;
+
 	// Use this for initialization
 	void Start () {
         radius = minRadius;
@@ -56,10 +58,22 @@ public class PlayerMovement : MonoBehaviour {
 
 		hpAdded = GameObject.Find("txtAddedHP").GetComponent<Text>();
 		hpAdded.text = "";
+		GameObject currentObject = GameObject.Find ("HurtPlane");
+		Color color = currentObject.GetComponent<MeshRenderer>().material.color;//SetColor("color", new Color(1,0,0,alpha));
+		color.a = 0;
+		currentObject.GetComponent<MeshRenderer> ().material.color = color;
     }
 	
     void Update()
     {
+		/*
+		GameObject currentObject = GameObject.Find ("HurtPlane");
+		Color color = currentObject.GetComponent<MeshRenderer>().material.color;//SetColor("color", new Color(1,0,0,alpha));
+		color.a = 0;
+		currentObject.GetComponent<MeshRenderer> ().material.color = color;
+
+		Debug.Log (color);*/
+
         handleInput();
 
 		if (effectActive) {
@@ -84,6 +98,24 @@ public class PlayerMovement : MonoBehaviour {
 				hpAdded.text = "";
 			}
 		}
+		// ------ NEw -----
+		//Color red = Color.red;
+		/*
+		GameObject currentObject = GameObject.Find ("HurtPlane");
+
+		//currentObject
+
+		float lerp = Mathf.PingPong(Time.time, 1.0f) / 1.0f;
+
+		float alpha = Mathf.Lerp (0.0f, 1.0f, lerp);
+
+		//alpha = Time.deltaTime * 0.00000001f;
+
+		//Color invisible = new Color (0, 0, 0, 0);
+		Color color = currentObject.GetComponent<MeshRenderer>().material.color;//SetColor("color", new Color(1,0,0,alpha));
+		color.a = alpha;
+		currentObject.GetComponent<MeshRenderer> ().material.color = color;
+		//Color.Lerp(red, invisible, lerp);*/
     }
     //Fixed update is by default 0.02s and handles more precise physics calculation as update (frame-drops, more time is needed) (everyFrame)
     void FixedUpdate () {

@@ -11,6 +11,12 @@ public class SimpleEnemy : MonoBehaviour {
 	private PlayerHealth playerHealth;
     private Image progressBar;
 
+	private bool fade;
+
+	private int counter = 0;
+
+	private GameObject hurtplane;
+
 
     // Use this for initialization
     void Start () {
@@ -18,6 +24,8 @@ public class SimpleEnemy : MonoBehaviour {
 
         progressBar = transform.FindChild("ProgressBar").FindChild("Red").FindChild("RedImage").GetComponent<Image>();
         progressBar.fillAmount = 1.0f;
+
+		hurtplane = GameObject.Find ("HurtPlane");
 	}
 	
 	// Update is called once per frame
@@ -36,6 +44,12 @@ public class SimpleEnemy : MonoBehaviour {
     {
         if (other.gameObject.name == "PlayerObject")
         {
+			/**
+			 * Flash
+			 * 
+			 * */
+			hurtplane.GetComponent<EnemyFadeScript> ().Fade ();
+
             if(playerHealth.damage(damage))
             {
                 Transform t = GameObject.Find("Cameras").transform.Find("OrthographicCamera").Find("SaveHighscoreMenu");
@@ -43,7 +57,7 @@ public class SimpleEnemy : MonoBehaviour {
                 t.GetComponent<SaveHighscoreMenuHandler>().finishedGame();
             }
 
-            Destroy(this.gameObject);
+			Destroy (this.gameObject);
         }
     }
 
