@@ -14,46 +14,14 @@ Platform assembly: C:\Users\Michael Pichler\Documents\Dizzy_Spiral\Project\Dizzy
 Loading C:\Users\Michael Pichler\Documents\Dizzy_Spiral\Project\Dizzy-Spiral\Dizzy_Spiral\Dizzy_Spiral_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
 Platform assembly: C:\Users\Michael Pichler\Documents\Dizzy_Spiral\Project\Dizzy-Spiral\Dizzy_Spiral\Dizzy_Spiral_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
 Loading C:\Users\Michael Pichler\Documents\Dizzy_Spiral\Project\Dizzy-Spiral\Dizzy_Spiral\Dizzy_Spiral_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
-- Completed reload, in  0.188 seconds
+- Completed reload, in  0.261 seconds
 Platform assembly: C:\Users\Michael Pichler\Documents\Dizzy_Spiral\Project\Dizzy-Spiral\Dizzy_Spiral\Dizzy_Spiral_Data\Managed\System.Core.dll (this message is harmless)
 Platform assembly: C:\Users\Michael Pichler\Documents\Dizzy_Spiral\Project\Dizzy-Spiral\Dizzy_Spiral\Dizzy_Spiral_Data\Managed\System.dll (this message is harmless)
 desktop: 1920x1080 60Hz; virtual: 1920x1080 at 0,0
 <RI> Initializing input.
 <RI> Input initialized.
 <RI> Initialized touch support.
-UnloadTime: 1.133207 ms
+UnloadTime: 1.025903 ms
 Setting up 2 worker threads for Enlighten.
-  Thread -> id: cf0 -> priority: 1 
-  Thread -> id: 954 -> priority: 1 
-Arena
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
-
-PlayerObject
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
-
-Arena
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
-
-PlayerObject
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
-
-Arena
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
-
-PlayerObject
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
-
-Arena
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
-
-PlayerObject
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
-
+  Thread -> id: 2730 -> priority: 1 
+  Thread -> id: 312c -> priority: 1 
